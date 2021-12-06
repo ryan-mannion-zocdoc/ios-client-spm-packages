@@ -10,12 +10,22 @@ declare -a SCHEMES=("AWSCore" "AWSCognitoAuth" "AWSCognitoIdentityProviderASF")
 
 for SCHEME in "${SCHEMES[@]}"
 do
-  X86_ARCHIVE_PATH="${WORKING_DIR}/archive/${SCHEME}/x86.xcarchive"
+  X86_SIM_ARCHIVE_PATH="${WORKING_DIR}/archive/${SCHEME}/x86sim.xcarchive"
   xcodebuild archive \
     ONLY_ACTIVE_ARCH=NO \
     -scheme ${SCHEME} \
     -arch x86_64 \
-    -archivePath "${X86_ARCHIVE_PATH}" \
+    -archivePath "${X86_SIM_ARCHIVE_PATH}" \
+    -sdk iphonesimulator \
+    SKIP_INSTALL=NO \
+    BUILD_LIBRARIES_FOR_DISTRIBUTION=YES
+
+  ARM_SIM_ARCHIVE_PATH="${WORKING_DIR}/archive/${SCHEME}/armsim.xcarchive"
+  xcodebuild archive \
+    ONLY_ACTIVE_ARCH=NO \
+    -scheme ${SCHEME} \
+    -arch arm64 \
+    -archivePath "${ARM_SIM_ARCHIVE_PATH}" \
     -sdk iphonesimulator \
     SKIP_INSTALL=NO \
     BUILD_LIBRARIES_FOR_DISTRIBUTION=YES
@@ -29,8 +39,12 @@ do
     SKIP_INSTALL=NO \
     BUILD_LIBRARIES_FOR_DISTRIBUTION=YES
 
+  lipo "${ARM_SIM_ARCHIVE_PATH}/Products/Library/Frameworks/${SCHEME}.framework/${SCHEME}" \
+    "${X86_SIM_ARCHIVE_PATH}/Products/Library/Frameworks/${SCHEME}.framework/${SCHEME}" \
+    -create -output "${ARM_SIM_ARCHIVE_PATH}/Products/Library/Frameworks/${SCHEME}.framework/${SCHEME}"
+
   xcodebuild -create-xcframework \
-    -framework ${X86_ARCHIVE_PATH}/Products/Library/Frameworks/${SCHEME}.framework \
+    -framework ${ARM_SIM_ARCHIVE_PATH}/Products/Library/Frameworks/${SCHEME}.framework \
     -framework ${ARM_ARCHIVE_PATH}/Products/Library/Frameworks/${SCHEME}.framework \
     -output "${WORKING_DIR}/xcframework/${SCHEME}.xcframework"
 done
