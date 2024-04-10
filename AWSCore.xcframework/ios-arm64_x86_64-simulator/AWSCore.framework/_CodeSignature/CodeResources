@@ -282,11 +282,15 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		GHVkOijusm7g+O3jzFbYp2+aXw4=
+		Iiphwd+QeowxIEY4RJmZQv9UdgE=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		xJyJ6TGxNFBLYG5VhS7CittLtmg=
+		z69yI3CJzP9GLXcl3yxhzn6x2UU=
+		</data>
+		<key>PrivacyInfo.xcprivacy</key>
+		<data>
+		r1DRgux89UWLpMUc8FyHvFzVSRc=
 		</data>
 		<key>strip-frameworks.sh</key>
 		<data>
@@ -782,7 +786,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			pqk34WE3PaFeM9Xn4KtIxyOD6Ohi6vtuEtP86/R0P1s=
+			NP3WRI9VVsids6t7u/qyloCZ9GQudEWctlSFIW6b2Ms=
+			</data>
+		</dict>
+		<key>PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Udp5/8Emjl0tLuUnxeaU2XsImHBQ3dvdSkEQnwWvFm8=
 			</data>
 		</dict>
 		<key>strip-frameworks.sh</key>
